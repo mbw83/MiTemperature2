@@ -1,3 +1,23 @@
+# Comments by mbw
+* Das Script liest zyklisch mit Hilfe von Bluetooth die Daten der *Xiaomi Mijia Thermometer 2*. Folgender Befehl führt das Script aus: `python3 /opt/MiTemperature2/LYWSD03MMC.py --atc --mqttconfigfile /opt/MiTemperature2/mqtt.conf --devicelistfile /opt/MiTemperature2/sensors.ini --rssi` 
+* Um das Script zyklisch aufzurufen wurde in folgendem Pfad /etc/systemd/system/mitemperature.service ein Service erstellt. Die Datei hat folgenden Inhalt:
+```
+[Unit]
+Description=mitemperature
+After=network.target
+
+[Service]
+ExecStart=python3 /opt/MiTemperature2/LYWSD03MMC.py --atc --mqttconfigfile /opt/MiTemperature2/mqtt.conf  --devicelistfile /opt/MiTemperature2/sensors.ini --rssi --round --debounce
+WorkingDirectory=/opt/MiTemperature2
+StandardOutput=null
+StandardError=inherit
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
+```
+
 # Read data from Xiaomi Mijia LYWSD03MMC Bluetooth 4.2 Temperature Humidity sensor
 
 With this script you can read out the data of your LYWSD03MMC (and some other) sensors, e.g. with Raspberry Pi. Note Raspbery Pi 4 has a very limited bluetooth range. Pi Zero W gives much longer range.
