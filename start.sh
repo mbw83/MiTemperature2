@@ -6,6 +6,6 @@ cd $DIR
 #uncomment following line to use in python virtual environment
 #source bin/activate
 
-./LYWSD03MMC.py --passive --watchdogtimer 5 #--mqttconfigfile mqtt.conf
+./LYWSD03MMC.py --passive --watchdogtimer 5 --mqttconfigfile mqtt.conf --devicelistfile sensors.ini --rssi
 
 
